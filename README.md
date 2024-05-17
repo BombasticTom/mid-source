@@ -1,5 +1,5 @@
 # Friday Night Funkin' - VS. Mid
-Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
+A mod for [Friday Night Funkin'](https://github.com/FunkinCrew/Funkin), created using [Psych Engine](https://www.github.com/ShadowMario/FNF-PsychEngine).
 
 ## Installation:
 

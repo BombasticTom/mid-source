@@ -1,0 +1,3 @@
+[submodule "mods/mid"]
+	path = mods/mid
+	url = https://github.com/BombasticTom/mid.git

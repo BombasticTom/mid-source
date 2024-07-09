@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Title_MID.png">
+	<!-- Created with Adobe Animate version 21.0.6.41649 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="MID idle dance0000" x="0" y="0" width="854" height="1424" frameX="0" frameY="-22" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0001" x="0" y="0" width="854" height="1424" frameX="0" frameY="-22" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0002" x="854" y="0" width="855" height="1433" frameX="-5" frameY="-13" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0003" x="854" y="0" width="855" height="1433" frameX="-5" frameY="-13" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0004" x="1709" y="0" width="858" height="1446" frameX="-15" frameY="0" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0005" x="1709" y="0" width="858" height="1446" frameX="-15" frameY="0" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0006" x="2567" y="0" width="862" height="1433" frameX="-20" frameY="-13" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0007" x="2567" y="0" width="862" height="1433" frameX="-20" frameY="-13" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0008" x="3429" y="0" width="861" height="1430" frameX="-22" frameY="-16" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0009" x="3429" y="0" width="861" height="1430" frameX="-22" frameY="-16" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0010" x="3429" y="0" width="861" height="1430" frameX="-22" frameY="-16" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0011" x="3429" y="0" width="861" height="1430" frameX="-22" frameY="-16" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0012" x="3429" y="0" width="861" height="1430" frameX="-22" frameY="-16" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0013" x="3429" y="0" width="861" height="1430" frameX="-22" frameY="-16" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0014" x="3429" y="0" width="861" height="1430" frameX="-22" frameY="-16" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0015" x="3429" y="0" width="861" height="1430" frameX="-22" frameY="-16" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0016" x="3429" y="0" width="861" height="1430" frameX="-22" frameY="-16" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0017" x="3429" y="0" width="861" height="1430" frameX="-22" frameY="-16" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0018" x="3429" y="0" width="861" height="1430" frameX="-22" frameY="-16" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0019" x="3429" y="0" width="861" height="1430" frameX="-22" frameY="-16" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID idle dance0020" x="3429" y="0" width="861" height="1430" frameX="-22" frameY="-16" frameWidth="883" frameHeight="1446"/>
+	<SubTexture name="MID vpose0000" x="4290" y="0" width="692" height="1431" frameX="-27" frameY="-21" frameWidth="729" frameHeight="1452"/>
+	<SubTexture name="MID vpose0001" x="4290" y="0" width="692" height="1431" frameX="-27" frameY="-21" frameWidth="729" frameHeight="1452"/>
+	<SubTexture name="MID vpose0002" x="4982" y="0" width="698" height="1430" frameX="-31" frameY="-22" frameWidth="729" frameHeight="1452"/>
+	<SubTexture name="MID vpose0003" x="4982" y="0" width="698" height="1430" frameX="-31" frameY="-22" frameWidth="729" frameHeight="1452"/>
+	<SubTexture name="MID vpose0004" x="5680" y="0" width="716" height="1439" frameX="-9" frameY="-13" frameWidth="729" frameHeight="1452"/>
+	<SubTexture name="MID vpose0005" x="6396" y="0" width="716" height="1439" frameX="-9" frameY="-13" frameWidth="729" frameHeight="1452"/>
+	<SubTexture name="MID vpose0006" x="7112" y="0" width="719" height="1448" frameX="-2" frameY="-4" frameWidth="729" frameHeight="1452"/>
+	<SubTexture name="MID vpose0007" x="0" y="1448" width="719" height="1448" frameX="-2" frameY="-4" frameWidth="729" frameHeight="1452"/>
+	<SubTexture name="MID vpose0008" x="719" y="1448" width="719" height="1452" frameX="0" frameY="0" frameWidth="729" frameHeight="1452"/>
+	<SubTexture name="MID vpose0009" x="1438" y="1448" width="719" height="1452" frameX="0" frameY="0" frameWidth="729" frameHeight="1452"/>
+	<SubTexture name="MID vpose0010" x="1438" y="1448" width="719" height="1452" frameX="0" frameY="0" frameWidth="729" frameHeight="1452"/>
+	<SubTexture name="MID vpose0011" x="2157" y="1448" width="719" height="1452" frameX="0" frameY="0" frameWidth="729" frameHeight="1452"/>
+	<SubTexture name="MID vpose0012" x="2876" y="1448" width="719" height="1452" frameX="0" frameY="0" frameWidth="729" frameHeight="1452"/>
+	<SubTexture name="MID vpose0013" x="2876" y="1448" width="719" height="1452" frameX="0" frameY="0" frameWidth="729" frameHeight="1452"/>
+</TextureAtlas>

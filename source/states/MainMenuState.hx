@@ -12,7 +12,7 @@ class MainMenuState extends MusicBeatState
 {
 	public static var psychEngineVersion:String = '0.7.3'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
-
+	
 	var stunned:Bool = false;
 
 	var options:Array<FlxSprite> = [];
@@ -22,8 +22,17 @@ class MainMenuState extends MusicBeatState
 	var frisbee:FlxSprite;
 	var character:FlxSprite;
 
+	var characterArray:Array<Dynamic> = //Put new characters here
+	[
+		["HYCMenu",0, 0],
+		["Locas", -500, -100],
+		["Maxwell", 0, 0]
+	]; 
+	public var isMaxAllowed:Bool;
 	final spriteAngle:Float = 45;
 	final xOffset:Float = 41;
+	var curChar:Int;
+
 
 	function recalculatePosition()
 	{
@@ -127,6 +136,10 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+
+		isMaxAllowed = FlxG.random.bool(1);
+		if(isMaxAllowed)
+			characterArray.push(["Fuck this", 0, 0]);//HOLY SHIT MAX DESIGN PRO
 		#if MODS_ALLOWED
 		Mods.pushGlobalMods();
 		#end
@@ -163,9 +176,13 @@ class MainMenuState extends MusicBeatState
 
 		midLogo = new FlxSprite(75, 10).loadGraphic(Paths.image("mainmenu/vsmid"));
 
-		character = new FlxSprite();
-		character.frames = Paths.getSparrowAtlas("mainmenu/characters/HYCMenu");
+		curChar = FlxG.random.int(0, characterArray.length-1);
+		if(isMaxAllowed)
+			curChar = FlxG.random.int(0, characterArray.length-1, [characterArray.indexOf('Fuck this')]);
+		character = new FlxSprite(characterArray[curChar][1],characterArray[curChar][2]);
+		character.frames = Paths.getSparrowAtlas("mainmenu/characters/" + characterArray[curChar][0]);
 		character.animation.addByPrefix("idle", "bop", 24, false);
+		trace('Current character'+characterArray[curChar][0]);
 
 		addOption("Story Mode", 120);
 		addOption("Freeplay", 48);

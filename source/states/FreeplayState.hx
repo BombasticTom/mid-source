@@ -110,11 +110,13 @@ class FreeplayState extends MusicBeatState
 			icon.sprTracker = songText;
 
 			
-			// too laggy with a lot of songs, so i had to recode the logic for it
+			// too laggy with a lot of songs, so i had to recode the logic for it - ShadowMario, aka. my arch nemesis
+			// Fight me! - Tom.
 			songText.visible = songText.active = songText.isMenuItem = false;
 			icon.visible = icon.active = false;
 
-			// using a FlxGroup is too much fuss!
+			// using a FlxGroup is too much fuss! - Ninja_Muffin99, aka. my other arch nemesis
+			// I'm too scared to fight 😅
 			iconArray.push(icon);
 			add(icon);
 

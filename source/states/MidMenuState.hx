@@ -85,12 +85,6 @@ class MidMenuState extends MidTemplate
 		}
 	}
 
-	function setVisibleButtons(visible:Bool)
-	{
-		for (spr in options)
-			spr.visible = visible;
-	}
-
 	function addOption(name:String, ?xOffset:Float = 0)
 	{
 		if (optionsGroup == null)

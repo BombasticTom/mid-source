@@ -27,13 +27,23 @@ class MidFreeplay extends MidTemplate
 
 	var songList:Array<SongMetadata> = [];
 
+	// Code for da highscore
+
+	var highscoreGroup:FlxSpriteGroup;
+
 	var highscoreBox:FlxSprite;
 	var highscoreTxt:FlxText;
+
+	// Code for them freaking difficulties!!
+
+	var difficultyGroup:FlxSpriteGroup;
 
 	var difficultyBox:FlxSprite;
 	var difficulty:FlxSprite;
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
+
+	// This shows up when no shit found 😹😹
 
 	var missingTextBG:FlxSprite;
 	var missingText:FlxText;
@@ -100,21 +110,27 @@ class MidFreeplay extends MidTemplate
 
 		curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(lastDifficultyName)));
 
-		highscoreBox = new FlxSprite().loadGraphic(Paths.image("freeplay/highscorebox"));
-		highscoreBox.x = FlxG.width - (highscoreBox.width + 40);
+		// Flipping highscore code!
 
-		highscoreTxt = new FlxText();
+		highscoreBox = new FlxSprite(0, 0, Paths.image("freeplay/highscorebox"));
+
+		highscoreTxt = new FlxText(0, 0, highscoreBox.width);
 		highscoreTxt.setFormat(Paths.font("Comic Sans MS.ttf"), 32, FlxColor.RED, CENTER, OUTLINE, FlxColor.BLACK);
 		highscoreTxt.text = "wowie zowie";
-		highscoreTxt.x = highscoreBox.x + highscoreBox.width * 0.5 - highscoreTxt.width * 0.5;
+		highscoreTxt.x = highscoreBox.width * 0.5 - highscoreTxt.width * 0.5;
 		highscoreTxt.y = highscoreBox.height * 0.75 - highscoreTxt.frameHeight * 0.5;
-		highscoreTxt.borderSize = 3;
+		highscoreTxt.borderSize = 2.5;
+		highscoreTxt.alignment = CENTER;
 
-		difficultyBox = new FlxSprite().loadGraphic(Paths.image("freeplay/difficultybox"));
-		difficultyBox.x = highscoreBox.x - (difficultyBox.width + 70);
+		highscoreGroup = new FlxSpriteGroup(FlxG.width - (highscoreBox.width + 40));
+		highscoreGroup.add(highscoreBox);
+		highscoreGroup.add(highscoreTxt);
 
-		difficulty = new FlxSprite();
-		difficulty.y = difficultyBox.height * 0.7;
+		// Freaking difficulty code!
+
+		difficultyBox = new FlxSprite(0, 0, Paths.image("freeplay/difficultybox"));
+
+		difficulty = new FlxSprite(0, difficultyBox.height * 0.7);
 
 		leftArrow = new FlxSprite(0, difficulty.y).loadGraphic(arrow);
 		leftArrow.angle = -15;
@@ -125,6 +141,14 @@ class MidFreeplay extends MidTemplate
 		rightArrow = new FlxSprite(0, difficulty.y).loadGraphic(arrow);
 		rightArrow.angle = 15;
 		rightArrow.offset.y = rightArrow.height * 0.5;
+
+		difficultyGroup = new FlxSpriteGroup(highscoreBox.x - (difficultyBox.width + 70));
+		difficultyGroup.add(difficultyBox);
+		difficultyGroup.add(difficulty);
+		difficultyGroup.add(leftArrow);
+		difficultyGroup.add(rightArrow);
+
+		// Missingno!
 
 		missingTextBG = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		missingTextBG.alpha = 0.6;
@@ -139,20 +163,19 @@ class MidFreeplay extends MidTemplate
 
 		add(songGroup);
 
-		add(difficultyBox);
-		add(difficulty);
-
-		add(highscoreBox);
-		add(highscoreTxt);
-
-		add(leftArrow);
-		add(rightArrow);
+		add(difficultyGroup);
+		add(highscoreGroup);
 
 		add(missingTextBG);
 		add(missingText);
 
-		changeSelection();
+		changeSelection(0, true);
 		playDifficultyTween(lastDifficultyName);
+
+		if (canCoolTween)
+			coolTween(true);
+
+		persistentUpdate = true;
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
@@ -170,9 +193,12 @@ class MidFreeplay extends MidTemplate
 		songList[curSelected].lastDifficulty = Difficulty.getString(curDifficulty);
 	}
 
-	function changeSelection(by:Int = 0)
+	function changeSelection(by:Int = 0, muteSound:Bool = false)
 	{
 		_updateSongLastDifficulty();
+
+		if (!muteSound)
+			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
 		curSelected += by;
 		
@@ -207,7 +233,7 @@ class MidFreeplay extends MidTemplate
 		else
 			curDifficulty = 0;
 
-		changeDiff();
+		changeDiff(0, true);
 		renderSongs();
 	}
 
@@ -228,9 +254,12 @@ class MidFreeplay extends MidTemplate
 		difficultyTween = FlxTween.tween(difficulty, {"offset.y": difficulty.offset.y - 15, alpha: 1}, 0.07);
 	}
 
-	function changeDiff(change:Int = 0)
+	function changeDiff(change:Int = 0, muteSound:Bool = false)
 	{
 		curDifficulty = (curDifficulty + change + Difficulty.list.length) % Difficulty.list.length;
+
+		if (!muteSound && Difficulty.list.length > 1)
+			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
 		#if !switch
 		var songName:String = songList[curSelected].songName;
@@ -276,6 +305,9 @@ class MidFreeplay extends MidTemplate
 		}
 	}
 
+	/**
+		Activates when all sprites are needed at once
+	**/
 	var dirtyRender:Bool = false;
 
 	public function updateTexts(elapsed:Float = 0.0)
@@ -287,6 +319,7 @@ class MidFreeplay extends MidTemplate
 			var roundLerp:Int = Math.round(lerpSelected);
 
 			renderSongs(roundLerp);
+
 			if (roundLerp == curSelected)
 				dirtyRender = false;
 		}
@@ -308,6 +341,15 @@ class MidFreeplay extends MidTemplate
 
 	override function update(elapsed:Float):Void
 	{
+		lerpScore = Math.floor(FlxMath.lerp(score, lerpScore, Math.exp(-elapsed * 24)));
+		lerpRating = FlxMath.lerp(rating, lerpRating, Math.exp(-elapsed * 12));
+
+		if (Math.abs(lerpScore - score) <= 10)
+			lerpScore = score;
+
+		if (Math.abs(lerpRating - rating) <= 0.01)
+			lerpRating = rating;
+
 		if (!stunned)
 		{
 			if (controls.UI_UP_P)
@@ -375,12 +417,35 @@ class MidFreeplay extends MidTemplate
 				FlxTransitionableState.skipNextTransOut = true;
 
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				FlxG.switchState(new MidMenuState({x: coolBG.x, y: coolBG.y}));
+				coolTween(false, (_) -> FlxG.switchState(new MidMenuState({x: coolBG.x, y: coolBG.y, scale: midLogo.scale.x})));
 			}
 		}
 
+		highscoreTxt.text = '$lerpScore (${Math.round(lerpRating * 100)}%)';
+
 		updateTexts(elapsed);
 		super.update(elapsed);
+	}
+
+	override function coolTween(reversed = false, ?complete:TweenCallback)
+	{
+		var tweenType:FlxTweenType = reversed ? BACKWARD : PERSIST;
+
+		FlxTween.tween(difficultyGroup, {y: difficultyGroup.y - difficultyBox.height - 20}, 0.5, {
+			ease: FlxEase.backInOut,
+			type: tweenType
+		});
+
+		FlxTween.tween(highscoreGroup, {y: highscoreGroup.y - highscoreBox.height - 20}, 0.7, {
+			ease: FlxEase.backInOut,
+			type: tweenType
+		});
+
+		FlxTween.tween(songCoords, {x: songCoords.x + 500}, 0.7, {
+			ease: FlxEase.backInOut,
+			type: tweenType,
+			onComplete: complete
+		});
 	}
 
 	override function destroy()

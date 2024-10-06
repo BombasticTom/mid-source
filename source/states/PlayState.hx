@@ -25,7 +25,7 @@ import cutscenes.CutsceneHandler;
 import cutscenes.DialogueBoxPsych;
 
 import states.StoryMenuState;
-import states.FreeplayState;
+import states.MidFreeplay;
 import states.editors.ChartingState;
 import states.editors.CharacterEditorState;
 
@@ -2385,7 +2385,7 @@ class PlayState extends MusicBeatState
 				Mods.loadTopMod();
 				#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
 
-				MusicBeatState.switchState(new FreeplayState());
+				MusicBeatState.switchState(new MidFreeplay());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				changedDifficulty = false;
 			}

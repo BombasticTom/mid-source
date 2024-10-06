@@ -1,5 +1,7 @@
 package states;
 
+import flixel.FlxState;
+import states.MidTemplate.PreviousMid;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.effects.FlxFlicker;
 import flixel.math.FlxAngle;
@@ -42,6 +44,8 @@ class MidMenuState extends MidTemplate
 		return characterList[FlxG.random.int(0, characterList.length - 1, exclude)];
 	}
 
+	static var characterData:MidCharacter;
+
 	var characterList:Array<MidCharacter> = // Avoid using Dynamic as much as possible!!
 	[
 		newChar("HYCMenu"),
@@ -55,17 +59,18 @@ class MidMenuState extends MidTemplate
 	var optionsGroup:FlxTypedGroup<FlxSprite>;
 
 	var frisbee:FlxSprite;
-	var character:FlxSprite;	
+	var character:FlxSprite;
 
 	final spriteAngle:Float = 45;
 	final xOffset:Float = 41;
+	final charX:Float = 920;
 
-	function recalculatePosition()
+	function recalculatePosition(?lockIn:Bool = false) // lock the FLIP in 😹
 	{
 		var rad:Float = FlxAngle.asRadians(spriteAngle);
 		
 		var midPoint:FlxPoint = frisbee.getGraphicMidpoint();
-		var lerpVal:Float = Math.exp(-FlxG.elapsed * 9.6);
+		var lerpVal:Float = lockIn ? 0 : Math.exp(-FlxG.elapsed * 9.6);
 
 		for (i => spr in options)
 		{
@@ -78,6 +83,12 @@ class MidMenuState extends MidTemplate
 			spr.x = FlxMath.lerp(toX, spr.x, lerpVal);
 			spr.y = FlxMath.lerp(toY, spr.y, lerpVal);
 		}
+	}
+
+	function setVisibleButtons(visible:Bool)
+	{
+		for (spr in options)
+			spr.visible = visible;
 	}
 
 	function addOption(name:String, ?xOffset:Float = 0)
@@ -137,7 +148,9 @@ class MidMenuState extends MidTemplate
 					FlxTransitionableState.skipNextTransIn = true;
 					FlxTransitionableState.skipNextTransOut = true;
 
-					MusicBeatState.switchState(new MidFreeplay({x: coolBG.x, y: coolBG.y}));
+					coolTween(false,
+						(_) -> MusicBeatState.switchState(new MidFreeplay({x: coolBG.x, y: coolBG.y, scale: midLogo.scale.x}))
+					);
 				case 2:
 					MusicBeatState.switchState(new OptionsState());
 					OptionsState.onPlayState = false;
@@ -161,6 +174,38 @@ class MidMenuState extends MidTemplate
 				onComplete: (_) -> spr.kill()
 			});
 		}
+	}
+
+	override function coolTween(reversed = false, ?complete:TweenCallback)
+	{
+		var tweenType:FlxTweenType = reversed ? BACKWARD : PERSIST;
+
+		var prevX:Float = frisbee.x;
+
+		if (reversed)
+			frisbee.x -= 800;
+		else
+			prevX -= 500;
+
+		recalculatePosition(true);
+
+		FlxTween.tween(frisbee, {x: prevX}, 1, {
+			ease: FlxEase.backInOut,
+			onComplete: complete
+		});
+
+		FlxTween.tween(character, {y: character.y + 650}, 1, {
+			ease: reversed ? FlxEase.sineOut : FlxEase.sineIn,
+			type: tweenType
+		});
+	}
+
+	public function new(bg:PreviousMid = null, refresh = false)
+	{
+		if (characterData == null || refresh)
+			characterData = chooseRandomCharacter();
+
+		super(bg, refresh);
 	}
 
 	override function create()
@@ -189,14 +234,11 @@ class MidMenuState extends MidTemplate
 		frisbee.setPosition(-frisbee.width / 1.5, FlxG.height - frisbee.height * 0.9);
 		frisbee.angularVelocity = 1000;
 
-		var characterData:MidCharacter = chooseRandomCharacter();
 		character = new FlxSprite(characterData.x, characterData.y);
 		character.frames = Paths.getSparrowAtlas('mainmenu/characters/${characterData.name}');
 		character.animation.addByPrefix("idle", "bop", 24, false);
 
 		trace('Current character: ${characterData.name}');
-
-		midLogo = new FlxSprite(75, 10).loadGraphic(Paths.image("mainmenu/vsmid"));
 
 		addOption("Story Mode", 120);
 		addOption("Freeplay", 48);
@@ -207,6 +249,9 @@ class MidMenuState extends MidTemplate
 		addNearBG(frisbee);
 		addNearBG(optionsGroup);
 		addNearBG(character);
+
+		if (canCoolTween)
+			coolTween(true);
 	}
 
 	override function update(elapsed:Float):Void

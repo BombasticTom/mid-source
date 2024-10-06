@@ -5,7 +5,8 @@ import flixel.FlxBasic;
 
 typedef PreviousMid = {
 	x:Float,
-	y:Float
+	y:Float,
+	?scale:Float
 }
 
 class MidTemplate extends MusicBeatState
@@ -16,6 +17,10 @@ class MidTemplate extends MusicBeatState
 	var corner2:FlxSprite;
 	var midLogo:FlxSprite;
 
+	var canCoolTween:Bool = false;
+
+	final zoomScale:Float = 1.27;
+
 	function createBG(x:Float = 0, y:Float = 0)
 	{
 		coolBG = new FlxBackdrop(Paths.image("mainmenu/mid"), XY, 12, 12);
@@ -24,10 +29,21 @@ class MidTemplate extends MusicBeatState
 		coolBG.velocity.set(-100, -100);
 	}
 
-	public function new(bg:PreviousMid = null)
+	public function new(bg:PreviousMid = null, refresh = false)
 	{
+		canCoolTween = !refresh;
+
+		midLogo = new FlxSprite(75, 10).loadGraphic(Paths.image("mainmenu/vsmid"));
+
 		if (bg != null)
+		{
 			createBG(bg.x, bg.y);
+
+			var scale:Float = bg.scale ?? 1;
+			midLogo.scale.set(scale, scale);
+		}
+
+		Conductor.bpm = 95;
 
 		super();
 	}
@@ -45,8 +61,6 @@ class MidTemplate extends MusicBeatState
 		corner2.x -= corner2.width;
 		corner2.y -= corner2.height;
 
-		midLogo = new FlxSprite(75, 10).loadGraphic(Paths.image("mainmenu/vsmid"));
-
 		add(coolBG);
 		add(corner1);
 		add(corner2);
@@ -59,7 +73,7 @@ class MidTemplate extends MusicBeatState
 	{
 		return insert(members.indexOf(coolBG) + 1, basic);
 	}
-
+	
 	override function update(elapsed:Float)
 	{
 		if (FlxG.sound.music != null)
@@ -76,7 +90,7 @@ class MidTemplate extends MusicBeatState
 	override function beatHit()
 	{
 		super.beatHit();
-		midLogo.scale.set(1.27, 1.27);
+		midLogo.scale.set(zoomScale, zoomScale);
 	}
 
 	override function destroy():Void
@@ -84,4 +98,6 @@ class MidTemplate extends MusicBeatState
 		bgColor = 0xFF000000;
 		super.destroy();
 	}
+
+	function coolTween(reversed = false, ?complete:TweenCallback) {}
 }

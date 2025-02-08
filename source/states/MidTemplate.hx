@@ -34,6 +34,7 @@ class MidTemplate extends MusicBeatState
 		canCoolTween = !refresh;
 
 		midLogo = new FlxSprite(75, 10).loadGraphic(Paths.image("mainmenu/vsmid"));
+		midLogo.antialiasing = ClientPrefs.data.antialiasing;
 
 		if (bg != null)
 		{

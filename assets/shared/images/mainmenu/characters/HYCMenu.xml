@@ -1,19 +1,22 @@
-<?xml version='1.0' encoding='utf-8'?>
-<TextureAtlas imagePath="HYCMenu.png">
-<SubTexture name="bop0000" x="0" y="0" width="453" height="570" frameX="-716" frameY="-160" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0001" x="0" y="0" width="453" height="570" frameX="-716" frameY="-160" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0002" x="453" y="0" width="452" height="576" frameX="-717" frameY="-154" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0003" x="453" y="0" width="452" height="576" frameX="-717" frameY="-154" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0004" x="0" y="576" width="445" height="581" frameX="-719" frameY="-149" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0005" x="0" y="576" width="445" height="581" frameX="-719" frameY="-149" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0006" x="445" y="576" width="437" height="587" frameX="-727" frameY="-143" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0007" x="445" y="576" width="437" height="587" frameX="-727" frameY="-143" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0008" x="0" y="1163" width="436" height="589" frameX="-728" frameY="-141" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0009" x="0" y="1163" width="436" height="589" frameX="-728" frameY="-141" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0010" x="0" y="1163" width="436" height="589" frameX="-728" frameY="-141" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0011" x="0" y="1163" width="436" height="589" frameX="-728" frameY="-141" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0012" x="0" y="1163" width="436" height="589" frameX="-728" frameY="-141" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0013" x="0" y="1163" width="436" height="589" frameX="-728" frameY="-141" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0014" x="0" y="1163" width="436" height="589" frameX="-728" frameY="-141" frameWidth="1280" frameHeight="720" />
-<SubTexture name="bop0015" x="0" y="1163" width="436" height="589" frameX="-728" frameY="-141" frameWidth="1280" frameHeight="720" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created with Funkin Packer v0.1.3 https://neeeoo.github.io/funkin-packer/
+-->
+<TextureAtlas imagePath="HYCMenu.png" width="2187" height="581">
+	<SubTexture name="bop0000" x="1" y="1" width="443" height="560" frameX="12" frameY="-19" frameWidth="564" frameHeight="570"/>
+	<SubTexture name="bop0001" x="1" y="1" width="443" height="560" frameX="12" frameY="-19" frameWidth="564" frameHeight="570"/>
+	<SubTexture name="bop0002" x="447" y="1" width="442" height="566" frameX="11" frameY="-13" frameWidth="563" frameHeight="576"/>
+	<SubTexture name="bop0003" x="447" y="1" width="442" height="566" frameX="11" frameY="-13" frameWidth="563" frameHeight="576"/>
+	<SubTexture name="bop0004" x="892" y="1" width="435" height="571" frameX="9" frameY="-7" frameWidth="561" frameHeight="581"/>
+	<SubTexture name="bop0005" x="892" y="1" width="435" height="571" frameX="9" frameY="-7" frameWidth="561" frameHeight="581"/>
+	<SubTexture name="bop0006" x="1330" y="1" width="427" height="577" frameX="1" frameY="-2" frameWidth="553" frameHeight="587"/>
+	<SubTexture name="bop0007" x="1330" y="1" width="427" height="577" frameX="1" frameY="-2" frameWidth="553" frameHeight="587"/>
+	<SubTexture name="bop0008" x="1760" y="1" width="426" height="579" frameX="0" frameY="0" frameWidth="552" frameHeight="589"/>
+	<SubTexture name="bop0009" x="1760" y="1" width="426" height="579" frameX="0" frameY="0" frameWidth="552" frameHeight="589"/>
+	<SubTexture name="bop0010" x="1760" y="1" width="426" height="579" frameX="0" frameY="0" frameWidth="552" frameHeight="589"/>
+	<SubTexture name="bop0011" x="1760" y="1" width="426" height="579" frameX="0" frameY="0" frameWidth="552" frameHeight="589"/>
+	<SubTexture name="bop0012" x="1760" y="1" width="426" height="579" frameX="0" frameY="0" frameWidth="552" frameHeight="589"/>
+	<SubTexture name="bop0013" x="1760" y="1" width="426" height="579" frameX="0" frameY="0" frameWidth="552" frameHeight="589"/>
+	<SubTexture name="bop0014" x="1760" y="1" width="426" height="579" frameX="0" frameY="0" frameWidth="552" frameHeight="589"/>
+	<SubTexture name="bop0015" x="1760" y="1" width="426" height="579" frameX="0" frameY="0" frameWidth="552" frameHeight="589"/>
 </TextureAtlas>

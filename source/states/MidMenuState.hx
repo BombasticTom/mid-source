@@ -11,8 +11,7 @@ import options.OptionsState;
 typedef MidCharacter = {
 	var name:String;
 	var chance:Float;
-	var x:Float;
-	var y:Float;
+	var yOffset:Float;
 }
 
 class MidMenuState extends MidTemplate
@@ -21,9 +20,9 @@ class MidMenuState extends MidTemplate
 	public static var curSelected:Int = 0;
 	public static var maxAllowed:Bool = false;
 
-	static function newChar(name:String, chance:Float = 1, x:Float = 0, y:Float = 0):MidCharacter
+	static function newChar(name:String, chance:Float = 1, yOffset:Float = 0.2):MidCharacter
 	{
-		return {name: name, chance: chance, x: x, y: y};
+		return {name: name, chance: chance, yOffset: yOffset};
 	}
 
 	function chooseRandomCharacter():MidCharacter
@@ -46,14 +45,23 @@ class MidMenuState extends MidTemplate
 
 	static var characterData:MidCharacter;
 
-	var characterList:Array<MidCharacter> = // Avoid using Dynamic as much as possible!!
+	final characterList:Array<MidCharacter> = // Avoid using Dynamic as much as possible!!
 	[
-		newChar("HYCMenu"),
-		newChar("Locas", 1, 600, 100),
-		newChar("Maxwell", 0.05)
+		newChar("BOY"),
+		newChar("GirlFriend"),
+		newChar("Mid"),
+		newChar("MYSTI"),
+		newChar("HYCMenu", 1, 0),
+		newChar("Locas", 1, 0),
+		newChar("yaoi", .0025),
+		newChar("Mysti_Evil", .005),
+		newChar("MDP", .01),
+		newChar("GYATFRIEND", .05)
 	]; 
 
 	var stunned:Bool = false;
+
+	var credits:FlxSprite;
 
 	var options:Array<FlxSprite> = [];
 	var optionsGroup:FlxTypedGroup<FlxSprite>;
@@ -131,10 +139,17 @@ class MidMenuState extends MidTemplate
 		optionsGroup.add(selectedSprite);
 	}
 
-	function selectSequence(selected:FlxSprite)
+	function selectSequence(selected:FlxSprite, choice:Int = -1)
 	{
+		FlxG.sound.play(Paths.sound('confirmMenu'));
+		FlxTransitionableState.skipNextTransIn = false;
+		FlxTransitionableState.skipNextTransOut = false;
+
+		if (choice < 0)
+			choice = curSelected;
+
 		FlxFlicker.flicker(selected, 1.0, 0.06, false, false, (flick:FlxFlicker) -> {
-			switch(curSelected)
+			switch(choice)
 			{
 				case 0:
 					MusicBeatState.switchState(new StoryMenuState());
@@ -155,6 +170,8 @@ class MidMenuState extends MidTemplate
 						PlayState.SONG.splashSkin = null;
 						PlayState.stageUI = 'normal';
 					}
+				case 3:
+					MusicBeatState.switchState(new CreditsState());
 			}
 		});
 
@@ -202,6 +219,8 @@ class MidMenuState extends MidTemplate
 		super(bg, refresh);
 	}
 
+	var sprLooped:Bool = false;
+
 	override function create()
 	{
 		#if MODS_ALLOWED
@@ -228,12 +247,29 @@ class MidMenuState extends MidTemplate
 		frisbee.setPosition(-frisbee.width / 1.5, FlxG.height - frisbee.height * 0.9);
 		frisbee.angularVelocity = 1000;
 
-		character = new FlxSprite(characterData.x, characterData.y);
+		credits = new FlxSprite(0, 0, Paths.image("mainmenu/credits"));
+		credits.x = FlxG.width - credits.width * 1.2;
+		credits.y = FlxG.height - credits.height * 1.2;
+
+		character = new FlxSprite(FlxG.width * .75, FlxG.height);
 		character.frames = Paths.getSparrowAtlas('mainmenu/characters/${characterData.name}');
 		character.animation.addByPrefix("idle", "bop", 24, false);
 
+		if (!character.animation.exists("idle"))
+		{
+			sprLooped = true;
+			character.animation.addByPrefix("idle", "idle", 24, true);
+			character.animation.play("idle", true);
+		}
+
+		character.x -= character.width * .5;
+		character.y -= character.height * (1 - characterData.yOffset);
+
 		trace('Current character: ${characterData.name}');
 
+		credits.antialiasing = ClientPrefs.data.antialiasing;
+		character.antialiasing = ClientPrefs.data.antialiasing;
+		
 		addOption("Story Mode", 120);
 		addOption("Freeplay", 48);
 		addOption("Options", 48);
@@ -243,6 +279,10 @@ class MidMenuState extends MidTemplate
 		addNearBG(frisbee);
 		addNearBG(optionsGroup);
 		addNearBG(character);
+		
+		add(credits);
+
+		FlxG.mouse.visible = true;
 
 		if (canCoolTween)
 			coolTween(true);
@@ -252,8 +292,15 @@ class MidMenuState extends MidTemplate
 	{
 		super.update(elapsed);
 
+		var creditsScale:Float = 1;
+		var creditsY:Float = 0;
+
+		// KBM CONTROLS
+
 		if (!stunned)
 		{
+			// KEYBOARD
+
 			if (controls.UI_UP_P)
 				changeSelection(-1);
 
@@ -262,7 +309,6 @@ class MidMenuState extends MidTemplate
 
 			if (controls.ACCEPT)
 			{
-				FlxG.sound.play(Paths.sound('confirmMenu'));
 				selectSequence(options[curSelected]);
 				stunned = true;
 			}
@@ -272,7 +318,34 @@ class MidMenuState extends MidTemplate
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				FlxG.switchState(new TitleState());
 			}
+
+			// MOUSE
+
+			if (FlxG.mouse.overlaps(credits))
+			{
+				credits.alpha = 1;
+				creditsScale = 1.2;
+
+				if (FlxG.mouse.justPressed)
+				{
+					selectSequence(credits, 3);
+					stunned = true;
+				}
+			}
+			else
+			{
+				credits.alpha = 0.5;
+				creditsY = FlxMath.fastSin(curDecBeat) * 10;
+			}
 		}
+
+		// cool credits effect
+
+		var lerpVal:Float = Math.exp(-elapsed * 9);
+		var creditsLerpScale:Float = FlxMath.lerp(creditsScale, credits.scale.x, lerpVal);
+
+		credits.scale.set(creditsLerpScale, creditsLerpScale);
+		credits.offset.y = FlxMath.lerp(creditsY, credits.offset.y, lerpVal);
 
 		recalculatePosition();
 	}
@@ -280,6 +353,8 @@ class MidMenuState extends MidTemplate
 	override function beatHit():Void
 	{
 		super.beatHit();
-		character.animation.play("idle", true);
+
+		if (!sprLooped)
+			character.animation.play("idle", true);
 	}
 }

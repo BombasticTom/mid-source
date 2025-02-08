@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Mid.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="idle0000" x="453" y="10" width="434" height="810" frameX="0" frameY="0" frameWidth="434" frameHeight="812"/>
+	<SubTexture name="idle0001" x="453" y="10" width="434" height="810" frameX="0" frameY="0" frameWidth="434" frameHeight="812"/>
+	<SubTexture name="idle0002" x="453" y="10" width="434" height="810" frameX="0" frameY="0" frameWidth="434" frameHeight="812"/>
+	<SubTexture name="idle0003" x="10" y="10" width="433" height="812" frameX="-1" frameY="0" frameWidth="434" frameHeight="812"/>
+	<SubTexture name="idle0004" x="10" y="10" width="433" height="812" frameX="-1" frameY="0" frameWidth="434" frameHeight="812"/>
+	<SubTexture name="idle0005" x="10" y="10" width="433" height="812" frameX="-1" frameY="0" frameWidth="434" frameHeight="812"/>
+</TextureAtlas>

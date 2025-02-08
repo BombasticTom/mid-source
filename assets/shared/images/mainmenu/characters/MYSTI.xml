@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="MYSTI.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="idle0000" x="10" y="10" width="635" height="773" frameX="-1" frameY="0" frameWidth="636" frameHeight="773"/>
+	<SubTexture name="idle0001" x="10" y="10" width="635" height="773" frameX="-1" frameY="0" frameWidth="636" frameHeight="773"/>
+	<SubTexture name="idle0002" x="10" y="10" width="635" height="773" frameX="-1" frameY="0" frameWidth="636" frameHeight="773"/>
+	<SubTexture name="idle0003" x="10" y="793" width="634" height="771" frameX="0" frameY="0" frameWidth="636" frameHeight="773"/>
+	<SubTexture name="idle0004" x="10" y="793" width="634" height="771" frameX="0" frameY="0" frameWidth="636" frameHeight="773"/>
+	<SubTexture name="idle0005" x="10" y="793" width="634" height="771" frameX="0" frameY="0" frameWidth="636" frameHeight="773"/>
+</TextureAtlas>

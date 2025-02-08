@@ -1,5 +1,8 @@
 package states;
 
+import flixel.graphics.FlxGraphic;
+import flixel.util.FlxGradient;
+import openfl.Assets;
 import flixel.FlxBasic;
 import flixel.math.FlxRect;
 import openfl.events.Event;
@@ -13,20 +16,19 @@ import openfl.display.Sprite;
 
 class CharacterWindowUtil extends FlxBasic
 {
-	private var activeWindows:Array<CharacterWindowSprite>;
-	private var mainWindow:Window;
+	public var activeWindows:Array<CharacterWindowSprite> = [];
+	final mainWindow:Window = Lib.application.window;
 
 	public function new()
 	{
 		super();
 
-		trace("initializing");
+		kill();
 
-		mainWindow = Lib.current.stage.window;
-		activeWindows = [];
+		trace("initializing");
+		FlxG.autoPause = false;
 
 		mainWindow.onClose.add(clearWindows);
-
 		FlxG.state.add(this);
 	}
 
@@ -35,13 +37,21 @@ class CharacterWindowUtil extends FlxBasic
 		trace("Closing all windows..");
 
 		for (theWindow in activeWindows)
-			theWindow.destroy();
+		{
+			theWindow.window.close();
+		}
 
 		activeWindows = [];
+
+		trace("All windows terminated.");
+
+		Paths.clearUnusedMemory();
 	}
 
 	override function destroy()
 	{
+		trace("buhbyeee");
+
 		if (mainWindow.onClose.has(clearWindows))
 			mainWindow.onClose.remove(clearWindows);
 
@@ -52,42 +62,29 @@ class CharacterWindowUtil extends FlxBasic
 
 	public function create(?character:Character):CharacterWindowSprite
 	{
-		var spr:CharacterWindowSprite = new CharacterWindowSprite(character);
+		var spr = new CharacterWindowSprite(character);
 		activeWindows.push(spr);
 
 		return spr;
 	}
 }
 
-class CharacterWindowSprite extends FlxBasic
+class CharacterWindowSprite
 {
 	public var window:Window;
 
-	private var windowSprite:Sprite;
 	private var character:Character;
+	private var windowSprite:Sprite = new Sprite();
+	private var container:Sprite = new Sprite();
 
 	public function new(?character:Character)
 	{
-		super();
-
 		if (character != null)
 			setup(character);
 	}
 
-	override function destroy()
-	{
-		window.close();
-
-		window = null;
-		windowSprite = null;
-
-		super.destroy();
-	}
-
 	public function setup(character:Character, x:Int = -10, width:Int = 500, height:Int = 500):CharacterWindowSprite {
 		var y:Int = Std.int(Application.current.window.display.currentMode.height / 2);
-
-		this.character = character;
 
 		window = Lib.application.createWindow({
 			title: character.curCharacter,
@@ -98,31 +95,30 @@ class CharacterWindowSprite extends FlxBasic
 			borderless: false
 		});
 
-		windowSprite = new Sprite();
-
-		windowSprite.graphics.beginBitmapFill(character.pixels, new Matrix(), false, true);
-		windowSprite.graphics.drawRect(0, 0, character.pixels.width, character.pixels.height);
-		windowSprite.graphics.endFill();
-		windowSprite.scrollRect = new Rectangle();
-
-		window.stage.addChild(windowSprite);
-		window.stage.addEventListener(Event.EXIT_FRAME, updateSprite);
-
-		Application.current.window.focus();
-		FlxG.autoPause = false;
-
 		if (character != null)
 			character.visible = false;
+
+		this.character = character;
+
+		// windowSprite.graphics.clear();
+		// windowSprite.graphics.beginBitmapFill(character.pixels, new Matrix());
+		// windowSprite.graphics.drawRect(0, 0, character.pixels.width, character.pixels.height);
+		// windowSprite.graphics.endFill();
+
+		container.addChild(windowSprite);
+		window.stage.addChild(container);
+
+		Application.current.window.focus();
 
 		return this;
 	}
 
+	@:noCompletion
+	var REMOVE_LISTENER:Bool = false;
+
 	private function updateSprite(event:Event)
 	{
-		var characterFrame:FlxRect = character.frame.frame;
-		
-		if (characterFrame != null)
-			windowSprite.scrollRect = characterFrame.copyToFlash(windowSprite.scrollRect);
+
 	}
 }
 
@@ -161,7 +157,11 @@ class TestState extends MusicBeatState
 	{
 		super.update(elapsed);
 
+		if (controls.ACCEPT)
+		{
+			FlxG.resetState();
+		}
 		if (controls.BACK)
-			MusicBeatState.switchState(new StoryMenuState());
+			MusicBeatState.switchState(new MidMenuState());
 	}
 } 

@@ -2,18 +2,18 @@
 <TextureAtlas imagePath="Maxwell.png">
 	<!-- Created with Adobe Animate version 20.5.0.29329 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="Max Design Pro instance 10000" x="2219" y="5" width="731" height="1930" frameX="-2" frameY="-3" frameWidth="733" frameHeight="1933"/>
-	<SubTexture name="Max Design Pro instance 10001" x="2219" y="5" width="731" height="1930" frameX="-2" frameY="-3" frameWidth="733" frameHeight="1933"/>
-	<SubTexture name="Max Design Pro instance 10002" x="1459" y="1938" width="719" height="1931" frameX="-14" frameY="-2" frameWidth="733" frameHeight="1933"/>
-	<SubTexture name="Max Design Pro instance 10003" x="1459" y="1938" width="719" height="1931" frameX="-14" frameY="-2" frameWidth="733" frameHeight="1933"/>
-	<SubTexture name="Max Design Pro instance 10004" x="2183" y="1940" width="717" height="1933" frameX="-16" frameY="0" frameWidth="733" frameHeight="1933"/>
-	<SubTexture name="Max Design Pro instance 10005" x="2183" y="1940" width="717" height="1933" frameX="-16" frameY="0" frameWidth="733" frameHeight="1933"/>
-	<SubTexture name="Max Design Pro instance 10006" x="5" y="1938" width="722" height="1926" frameX="-11" frameY="-7" frameWidth="733" frameHeight="1933"/>
-	<SubTexture name="Max Design Pro instance 10007" x="732" y="1938" width="722" height="1926" frameX="-11" frameY="-7" frameWidth="733" frameHeight="1933"/>
-	<SubTexture name="Max Design Pro instance 10008" x="732" y="1938" width="722" height="1926" frameX="-11" frameY="-7" frameWidth="733" frameHeight="1933"/>
-	<SubTexture name="Max Design Pro instance 10009" x="5" y="5" width="733" height="1928" frameX="0" frameY="-5" frameWidth="733" frameHeight="1933"/>
-	<SubTexture name="Max Design Pro instance 10010" x="5" y="5" width="733" height="1928" frameX="0" frameY="-5" frameWidth="733" frameHeight="1933"/>
-	<SubTexture name="Max Design Pro instance 10011" x="743" y="5" width="733" height="1928" frameX="0" frameY="-5" frameWidth="733" frameHeight="1933"/>
-	<SubTexture name="Max Design Pro instance 10012" x="743" y="5" width="733" height="1928" frameX="0" frameY="-5" frameWidth="733" frameHeight="1933"/>
-	<SubTexture name="Max Design Pro instance 10013" x="1481" y="5" width="733" height="1928" frameX="0" frameY="-5" frameWidth="733" frameHeight="1933"/>
+	<SubTexture name="bop0000" x="2219" y="5" width="731" height="1930" frameX="-2" frameY="-3" frameWidth="733" frameHeight="1933"/>
+	<SubTexture name="bop0001" x="2219" y="5" width="731" height="1930" frameX="-2" frameY="-3" frameWidth="733" frameHeight="1933"/>
+	<SubTexture name="bop0002" x="1459" y="1938" width="719" height="1931" frameX="-14" frameY="-2" frameWidth="733" frameHeight="1933"/>
+	<SubTexture name="bop0003" x="1459" y="1938" width="719" height="1931" frameX="-14" frameY="-2" frameWidth="733" frameHeight="1933"/>
+	<SubTexture name="bop0004" x="2183" y="1940" width="717" height="1933" frameX="-16" frameY="0" frameWidth="733" frameHeight="1933"/>
+	<SubTexture name="bop0005" x="2183" y="1940" width="717" height="1933" frameX="-16" frameY="0" frameWidth="733" frameHeight="1933"/>
+	<SubTexture name="bop0006" x="5" y="1938" width="722" height="1926" frameX="-11" frameY="-7" frameWidth="733" frameHeight="1933"/>
+	<SubTexture name="bop0007" x="732" y="1938" width="722" height="1926" frameX="-11" frameY="-7" frameWidth="733" frameHeight="1933"/>
+	<SubTexture name="bop0008" x="732" y="1938" width="722" height="1926" frameX="-11" frameY="-7" frameWidth="733" frameHeight="1933"/>
+	<SubTexture name="bop0009" x="5" y="5" width="733" height="1928" frameX="0" frameY="-5" frameWidth="733" frameHeight="1933"/>
+	<SubTexture name="bop0010" x="5" y="5" width="733" height="1928" frameX="0" frameY="-5" frameWidth="733" frameHeight="1933"/>
+	<SubTexture name="bop0011" x="743" y="5" width="733" height="1928" frameX="0" frameY="-5" frameWidth="733" frameHeight="1933"/>
+	<SubTexture name="bop0012" x="743" y="5" width="733" height="1928" frameX="0" frameY="-5" frameWidth="733" frameHeight="1933"/>
+	<SubTexture name="bop0013" x="1481" y="5" width="733" height="1928" frameX="0" frameY="-5" frameWidth="733" frameHeight="1933"/>
 </TextureAtlas>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Mysti_Evil.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="idle0000" x="10" y="800" width="483" height="780" frameX="0" frameY="-1" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0001" x="10" y="800" width="483" height="780" frameX="0" frameY="-1" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0002" x="503" y="801" width="483" height="780" frameX="0" frameY="-1" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0003" x="1491" y="10" width="466" height="777" frameX="-7" frameY="-8" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0004" x="1491" y="10" width="466" height="777" frameX="-7" frameY="-8" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0005" x="1967" y="10" width="466" height="777" frameX="-7" frameY="-8" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0006" x="10" y="1590" width="483" height="780" frameX="0" frameY="-1" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0007" x="996" y="801" width="483" height="780" frameX="0" frameY="-1" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0008" x="998" y="10" width="483" height="780" frameX="0" frameY="-1" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0009" x="1489" y="1587" width="466" height="777" frameX="-7" frameY="-8" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0010" x="1489" y="1587" width="466" height="777" frameX="-7" frameY="-8" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0011" x="503" y="1591" width="466" height="777" frameX="-7" frameY="-8" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0012" x="505" y="10" width="483" height="781" frameX="0" frameY="0" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0013" x="505" y="10" width="483" height="781" frameX="0" frameY="0" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0014" x="10" y="10" width="485" height="780" frameX="0" frameY="-1" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0015" x="1489" y="800" width="478" height="777" frameX="-7" frameY="-8" frameWidth="485" frameHeight="785"/>
+	<SubTexture name="idle0016" x="979" y="1591" width="466" height="777" frameX="-7" frameY="-8" frameWidth="485" frameHeight="785"/>
+</TextureAtlas>

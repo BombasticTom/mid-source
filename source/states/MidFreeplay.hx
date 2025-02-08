@@ -1,5 +1,6 @@
 package states;
 
+import objects.AttachedSprite;
 import objects.FreeplaySelection;
 import haxe.Exception;
 import backend.Song;
@@ -48,7 +49,11 @@ class MidFreeplay extends MidTemplate
 	var missingTextBG:FlxSprite;
 	var missingText:FlxText;
 
+	// Song select shenanigans
+
 	var songGroup:FlxTypedGroup<FreeplaySelection>;
+	var stupidChudIcon:AttachedSprite;
+	final chudOrigin:Float = -125;
 
 	static var lastDifficultyName:String = Difficulty.getDefault();
 
@@ -59,10 +64,14 @@ class MidFreeplay extends MidTemplate
 
 	var difficultyTween:FlxTween;
 
+	var scrollMenu:FlxSound;
+
 	override function create()
 	{
 		// Assets preloading code
 		WeekData.reloadWeekFiles(false);
+
+		scrollMenu = FlxG.sound.load(Paths.sound('scrollMenu'), 0.4);
 
 		for (i => weekName in WeekData.weeksList) {
 			var week:WeekData = WeekData.weeksLoaded.get(weekName);
@@ -148,6 +157,11 @@ class MidFreeplay extends MidTemplate
 		difficultyGroup.add(leftArrow);
 		difficultyGroup.add(rightArrow);
 
+		var stupidChudGraphic = Paths.image("icons/icon-bf");
+		stupidChudIcon = new AttachedSprite();
+		stupidChudIcon.loadGraphic(stupidChudGraphic, true, Std.int(stupidChudGraphic.width / 2));
+		stupidChudIcon.xAdd = chudOrigin;
+
 		// Missingno!
 
 		missingTextBG = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -165,6 +179,7 @@ class MidFreeplay extends MidTemplate
 
 		add(difficultyGroup);
 		add(highscoreGroup);
+		add(stupidChudIcon);
 
 		add(missingTextBG);
 		add(missingText);
@@ -195,41 +210,40 @@ class MidFreeplay extends MidTemplate
 
 	function changeSelection(by:Int = 0, muteSound:Bool = false)
 	{
-		_updateSongLastDifficulty();
+		var curSong:SongMetadata = songList[curSelected];
+		var lastList:Array<String> = Difficulty.list;
 
-		if (!muteSound)
-			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		curSong.lastDifficulty = Difficulty.getString(curDifficulty);
 
 		curSelected += by;
-		
-		if (curSelected < 0)
-		{
-			curSelected = songList.length - 1;
-			dirtyRender = true;
-		}
-		if (curSelected >= songList.length)
-		{
-			curSelected = 0;
-			dirtyRender = true;
-		}
+		dirtyRender = (curSelected < 0 || curSelected >= songList.length);
+		curSelected = (curSelected + songList.length) % songList.length;
 
-		var prevDiffs:Array<String> = Difficulty.list;
+		curSong = songList[curSelected];
+		var curSprite:FreeplaySelection = songGroup.members[curSelected];
 
-		var curSong:SongMetadata = songList[curSelected];
+		stupidChudIcon.sprTracker = curSprite;
+
+		if (!muteSound)
+			scrollMenu.play(true);
 
 		Mods.currentModDirectory = curSong.folder;
 		PlayState.storyWeek = curSong.week;
 		Difficulty.loadFromWeek();
 
-		var savedDiff:String = songList[curSelected].lastDifficulty;
-		var lastDiff:Int = Difficulty.list.indexOf(lastDifficultyName);
+		var savedDiff:String = curSong.lastDifficulty;
+		final defaultDiff:String = Difficulty.getDefault();
 
-		if (savedDiff != null && !prevDiffs.contains(savedDiff) && Difficulty.list.contains(savedDiff))
-			curDifficulty = Math.round(Math.max(0, Difficulty.list.indexOf(savedDiff)));
-		else if (lastDiff > -1)
-			curDifficulty = lastDiff;
-		else if (Difficulty.list.contains(Difficulty.getDefault()))
-			curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(Difficulty.getDefault())));
+		var savedIDX:Int = Difficulty.list.indexOf(savedDiff);
+		var lastIDX:Int = Difficulty.list.indexOf(lastDifficultyName);
+		var defaultIDX:Int = Difficulty.list.indexOf(defaultDiff);
+
+		if(savedIDX > -1 && !lastList.contains(savedDiff))
+			curDifficulty = savedIDX;
+		else if (lastIDX > -1)
+			curDifficulty = lastIDX;
+		else if (defaultIDX > - 1)
+			curDifficulty = defaultIDX;
 		else
 			curDifficulty = 0;
 
@@ -343,6 +357,8 @@ class MidFreeplay extends MidTemplate
 	{
 		lerpScore = Math.floor(FlxMath.lerp(score, lerpScore, Math.exp(-elapsed * 24)));
 		lerpRating = FlxMath.lerp(rating, lerpRating, Math.exp(-elapsed * 12));
+
+		stupidChudIcon.xAdd = chudOrigin + FlxMath.fastCos(curDecBeat) * 20;
 
 		if (Math.abs(lerpScore - score) <= 10)
 			lerpScore = score;

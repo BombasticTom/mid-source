@@ -152,6 +152,8 @@ class TitleState extends MusicBeatState
 		MusicBeatState.switchState(new MidMenuState());
 		FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
 		Conductor.bpm = titleJSON.bpm;
+		#elseif TESTING
+		MusicBeatState.switchState(new TestState());
 		#elseif FREEPLAY
 		MusicBeatState.switchState(new FreeplayState());
 		#elseif CHARTING

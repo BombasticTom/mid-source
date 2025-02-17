@@ -316,7 +316,7 @@ class MidMenuState extends MidTemplate
 			if (controls.BACK)
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				FlxG.switchState(new TitleState());
+				LoadingState.loadAndSwitchState(new TitleState());
 			}
 
 			// MOUSE
@@ -356,5 +356,11 @@ class MidMenuState extends MidTemplate
 
 		if (!sprLooped)
 			character.animation.play("idle", true);
+	}
+
+	override function destroy()
+	{
+		FlxG.mouse.visible = false;
+		super.destroy();
 	}
 }

@@ -248,7 +248,30 @@ class CreditsState extends MusicBeatState
 			}
 		}
 
-		descText.text = creditsStuff[curSelected][2];
+		var newTXT:String = creditsStuff[curSelected][2];
+		var modDirectory:String = creditsStuff[curSelected][5];
+
+		descText.text = newTXT;
+		descText.antialiasing = false;
+		descText.scale.set(1, 1);
+		descText.updateHitbox();
+
+		if(modDirectory != null)
+			Mods.currentModDirectory = modDirectory;
+
+		if (newTXT.endsWith(".png") && Paths.fileExists('images/$newTXT', IMAGE)) // looks for image descriptions
+		{
+			var myNewAwesomeGraphic = Paths.image(newTXT.substr(0, newTXT.length - 4));
+			var size = descText.graphic.width;
+
+			descText.loadGraphic(myNewAwesomeGraphic);
+			descText.antialiasing = ClientPrefs.data.antialiasing;
+			descText.setGraphicSize(size, descText.height * 0.5);
+			descText.updateHitbox();
+		}
+
+		Mods.currentModDirectory = "";
+
 		descText.y = FlxG.height - descText.height + offsetThing - 60;
 
 		if(moveTween != null) moveTween.cancel();

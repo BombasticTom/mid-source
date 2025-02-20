@@ -68,6 +68,15 @@ class MidTemplate extends MusicBeatState
 		add(midLogo);
 
 		super.create();
+
+		persistentDraw = true;
+		persistentUpdate = true;
+
+		if (!FlxG.sound.music.playing)
+		{
+			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+			FlxG.sound.music.fadeIn(4, 0, 0.7);
+		}
 	}
 
 	function addNearBG(basic:FlxBasic):FlxBasic

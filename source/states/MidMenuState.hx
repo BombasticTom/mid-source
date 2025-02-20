@@ -315,8 +315,10 @@ class MidMenuState extends MidTemplate
 
 			if (controls.BACK)
 			{
+				stunned = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				LoadingState.loadAndSwitchState(new TitleState());
+				FlxTransitionableState.skipNextTransIn = true;
+				FlxG.camera.fade(FlxColor.BLACK, .5, false, () -> LoadingState.loadAndSwitchState(new TitleState()));
 			}
 
 			// MOUSE

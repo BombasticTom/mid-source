@@ -26,7 +26,7 @@
 	<define name="ACHIEVEMENTS_ALLOWED" />
 	<define name="DISCORD_ALLOWED" />
 	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE WATERMARKS/DEV NAMES ON TITLE SCREEN -->
-	<define name="TESTING" />
+	<!-- <define name="TESTING" /> -->
 
 	<!-- <define name="MENUTEST" /> <! - Used for testing main menus -->
 

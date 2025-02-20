@@ -1,5 +1,7 @@
 package substates;
 
+import states.MidFreeplay;
+import states.MidMenuState;
 import backend.WeekData;
 
 import objects.Character;
@@ -95,7 +97,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			if (PlayState.isStoryMode)
 				MusicBeatState.switchState(new StoryMenuState());
 			else
-				MusicBeatState.switchState(new FreeplayState());
+				MusicBeatState.switchState(new MidFreeplay());
 
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			PlayState.instance.callOnScripts('onGameOverConfirm', [false]);

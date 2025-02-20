@@ -55,7 +55,7 @@ class LearningState extends MusicBeatState
 		FlxG.camera.fade(FlxColor.BLACK, 2, true);
 	}
 
-	var stunned:Bool = false;
+	var stunned:Bool = true;
 
 	override function update(elapsed:Float)
 	{
@@ -131,6 +131,7 @@ class LearningState extends MusicBeatState
 				add(copyright);
 				add(start);
 
+				stunned = false;
 				FlxFlicker.flicker(start, 0, 1, false);
 		}
 	}

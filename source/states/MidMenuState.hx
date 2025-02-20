@@ -16,7 +16,7 @@ typedef MidCharacter = {
 
 class MidMenuState extends MidTemplate
 {
-	public static var midVersion:String = '0.7.3'; // This is also used for Discord RPC
+	public static var midVersion:String = '2.0'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 	public static var maxAllowed:Bool = false;
 

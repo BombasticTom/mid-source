@@ -71,6 +71,14 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.decimals = 1;
 		addOption(option);
 
+		var option:Option = new Option("Title Screen Theme",
+			"Select a theme for your Title Screen!",
+			"titlescreen",
+			"string",
+			["Auto", "Adventure", "Anime"]
+		);
+		addOption(option);
+
 		var option:Option = new Option('Hide HUD',
 			'If checked, hides most HUD elements.',
 			'hideHud',

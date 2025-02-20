@@ -127,7 +127,22 @@ class TitleState extends MusicBeatState
 		}
 		else
 		{
-			MusicBeatState.switchState(new AnimeState());
+			switch (FlxG.save.data.titlescreen)
+			{
+				case "Adventure":
+					MusicBeatState.switchState(new LearningState());
+				case "Anime":
+					MusicBeatState.switchState(new AnimeState());
+
+				default:
+					var randomChoice:Int = FlxG.random.int(0, 100);
+
+					// Even numbers are SA2, Odd numbers are Cosmic's menu
+					if (randomChoice % 2 == 0)
+						MusicBeatState.switchState(new LearningState());
+					else
+						MusicBeatState.switchState(new AnimeState());
+			}
 		}
 
 		#end

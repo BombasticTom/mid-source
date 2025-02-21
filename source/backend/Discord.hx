@@ -8,7 +8,7 @@ import hxdiscord_rpc.Types;
 class DiscordClient
 {
 	public static var isInitialized:Bool = false;
-	private static final _defaultID:String = "863222024192262205";
+	private static final _defaultID:String = "1240324099054633030";
 	public static var clientID(default, set):String = _defaultID;
 	private static var presence:DiscordRichPresence = DiscordRichPresence.create();
 
@@ -121,12 +121,16 @@ class DiscordClient
 	#if MODS_ALLOWED
 	public static function loadModRPC()
 	{
-		var pack:Dynamic = Mods.getPack();
-		if(pack != null && pack.discordRPC != null && pack.discordRPC != clientID)
-		{
-			clientID = pack.discordRPC;
-			//trace('Changing clientID! $clientID, $_defaultID');
-		}
+		/*
+			var pack:Dynamic = Mods.getPack();
+			if(pack != null && pack.discordRPC != null && pack.discordRPC != clientID)
+			{
+				clientID = pack.discordRPC;
+				//trace('Changing clientID! $clientID, $_defaultID');
+			}
+		*/
+
+		trace("Custom RPC has been disabled. Boohoo.");
 	}
 	#end
 

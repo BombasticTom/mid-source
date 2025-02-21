@@ -1,5 +1,7 @@
-package states;
+package states.titlescreens;
 
+import openfl.filters.ShaderFilter;
+import shaders.Glitch;
 import states.TitleState.TitleData;
 
 import flixel.graphics.frames.FlxFrame;
@@ -57,7 +59,9 @@ class AnimeState extends TitleBaseplate
 	}
 
 	var titleText:FlxSprite;
-	var swagShader:ColorSwap = null;
+	
+	var swagShader:Glitch;
+	var shaderFilter:ShaderFilter;
 
 	function startIntro()
 	{
@@ -67,7 +71,11 @@ class AnimeState extends TitleBaseplate
 		Conductor.bpm = titleJSON.bpm;
 		persistentUpdate = true;
 
-		if(false && ClientPrefs.data.shaders)swagShader = new ColorSwap();
+		if(ClientPrefs.data.shaders)
+		{
+			swagShader = new Glitch();
+			shaderFilter = new ShaderFilter(swagShader.shader);
+		}
 
 		credGroup = new FlxGroup();
 		add(credGroup);
@@ -177,8 +185,7 @@ class AnimeState extends TitleBaseplate
 
 		if(swagShader != null)
 		{
-			if(controls.UI_LEFT) swagShader.hue -= elapsed * 0.1;
-			if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
+			swagShader.iTime = Conductor.songPosition / 1500;
 		}
 
 		super.update(elapsed);
@@ -284,7 +291,7 @@ class AnimeState extends TitleBaseplate
 	{
 		if (!skippedIntro)
 		{
-			var tTween:Float = 5;
+			var tTween:Float = 1;
 
 			var bg = quickSprite("titlebg");
 			bg.scale.set(4, 4);
@@ -305,6 +312,8 @@ class AnimeState extends TitleBaseplate
 			add(midtrail);
 			add(logoBl);
 
+			FlxG.camera.filters = [shaderFilter];
+
 			FlxTween.tween(bg, {"scale.x": 1, "scale.y": 1}, tTween, {ease: FlxEase.cubeOut});
 			FlxTween.tween(logoBl, {x: -150}, tTween, {ease: FlxEase.cubeOut, startDelay: tTween});
 			FlxTween.tween(mid, {x: 500}, tTween, {ease: FlxEase.cubeOut});
@@ -313,5 +322,13 @@ class AnimeState extends TitleBaseplate
 
 			skippedIntro = true;
 		}
+	}
+
+	override function destroy()
+	{
+		swagShader.destroy();
+		swagShader = null;
+		shaderFilter = null;
+		super.destroy();
 	}
 }

@@ -1,22 +1,12 @@
 package states;
 
-import objects.Character;
-import backend.WeekData;
+import flixel.FlxState;
 import backend.Highscore;
 
 import flixel.input.keyboard.FlxKey;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.graphics.frames.FlxFrame;
-import flixel.group.FlxGroup;
-import flixel.input.gamepad.FlxGamepad;
-import haxe.Json;
 
-import openfl.Assets;
-import openfl.display.Bitmap;
-import openfl.display.BitmapData;
-
-import shaders.ColorSwap;
+import states.titlescreens.*;
 
 typedef TitleData =
 {
@@ -124,27 +114,34 @@ class TitleState extends MusicBeatState
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new FlashingState());
+			return;
 		}
-		else
+
+		var stateID:Int = 0;
+
+		switch (FlxG.save.data.titlescreen)
 		{
-			switch (FlxG.save.data.titlescreen)
-			{
-				case "Adventure":
-					MusicBeatState.switchState(new LearningState());
-				case "Anime":
-					MusicBeatState.switchState(new AnimeState());
+			case "Adventure":
+				stateID = 0;
+			case "Anime":
+				stateID = 1;
+			case "Spooky":
+				stateID = 2;
 
-				default:
-					var randomChoice:Int = FlxG.random.int(0, 100);
-
-					// Even numbers are SA2, Odd numbers are Cosmic's menu
-					if (randomChoice % 2 == 0)
-						MusicBeatState.switchState(new LearningState());
-					else
-						MusicBeatState.switchState(new AnimeState());
-			}
+			default:
+				stateID = FlxG.random.int(0, 150) % 3;
 		}
 
+		switch (stateID)
+		{
+			case 0:
+				MusicBeatState.switchState(new LearningState());
+			case 1:
+				MusicBeatState.switchState(new AnimeState());
+			case 2:
+				MusicBeatState.switchState(new SpookyState());
+		}
+		
 		#end
 	}
 }

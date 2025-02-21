@@ -1,4 +1,4 @@
-package states;
+package states.titlescreens;
 
 import flixel.graphics.FlxGraphic;
 import flixel.addons.transition.TransitionData;
@@ -53,5 +53,10 @@ class TitleBaseplate extends MusicBeatState
 		
 		if (name != null)
 			themeName = 'TitleScreens/$name/';
+	}
+
+	override function destroy() {
+		bgColor = FlxColor.BLACK;
+		super.destroy();
 	}
 }

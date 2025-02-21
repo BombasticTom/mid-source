@@ -1,4 +1,4 @@
-package states;
+package states.titlescreens;
 
 import flixel.input.gamepad.FlxGamepad;
 import flixel.effects.FlxFlicker;
@@ -135,11 +135,5 @@ class LearningState extends TitleBaseplate
 				stunned = false;
 				FlxFlicker.flicker(start, 0, 1, false);
 		}
-	}
-
-	override function destroy()
-	{
-		bgColor = FlxColor.BLACK;
-		super.destroy();
 	}
 }

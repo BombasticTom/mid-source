@@ -75,7 +75,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			"Select a theme for your Title Screen!",
 			"titlescreen",
 			"string",
-			["Auto", "Adventure", "Anime"]
+			["Auto", "Adventure", "Anime", "Spooky"]
 		);
 		addOption(option);
 

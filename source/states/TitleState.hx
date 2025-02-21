@@ -127,9 +127,11 @@ class TitleState extends MusicBeatState
 				stateID = 1;
 			case "Spooky":
 				stateID = 2;
+			case "Mid":
+				stateID = 3;
 
 			default:
-				stateID = FlxG.random.int(0, 150) % 3;
+				stateID = FlxG.random.int(0, 200) % 4;
 		}
 
 		switch (stateID)
@@ -140,6 +142,8 @@ class TitleState extends MusicBeatState
 				MusicBeatState.switchState(new AnimeState());
 			case 2:
 				MusicBeatState.switchState(new SpookyState());
+			case 3:
+				MusicBeatState.switchState(new MidState());
 		}
 		
 		#end

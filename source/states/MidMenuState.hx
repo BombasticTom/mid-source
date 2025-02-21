@@ -194,9 +194,15 @@ class MidMenuState extends MidTemplate
 		var prevX:Float = frisbee.x;
 
 		if (reversed)
+		{
 			frisbee.x -= 800;
+			credits.alpha = 0;
+		}
 		else
+		{
 			prevX -= 500;
+			credits.alpha = 0.5;
+		}
 
 		recalculatePosition(true);
 
@@ -206,6 +212,11 @@ class MidMenuState extends MidTemplate
 		});
 
 		FlxTween.tween(character, {y: character.y + 650}, 1, {
+			ease: reversed ? FlxEase.sineOut : FlxEase.sineIn,
+			type: tweenType
+		});
+
+		FlxTween.tween(credits, {alpha: 0}, 1, {
 			ease: reversed ? FlxEase.sineOut : FlxEase.sineIn,
 			type: tweenType
 		});

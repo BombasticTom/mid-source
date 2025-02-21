@@ -22,7 +22,7 @@ class SpookyState extends TitleBaseplate
 	}
 
 	final breatheRadius:Float = 10;
-	final distance:Float = 20;
+	final distance:Float = 17;
 
 	var bf:FlxSprite;
 

@@ -4,7 +4,7 @@ import flixel.input.gamepad.FlxGamepad;
 import flixel.effects.FlxFlicker;
 import flixel.addons.transition.FlxTransitionableState;
 
-class LearningState extends MusicBeatState
+class LearningState extends TitleBaseplate
 {
 	var skyLeft:FlxSprite;
 	var skyRight:FlxSprite;
@@ -14,34 +14,33 @@ class LearningState extends MusicBeatState
 	var start:FlxSprite;
 	var copyright:FlxSprite;
 
-	inline function quickImage(path:String)
-		return Paths.image('coolertitlestate/$path');
+	public function new(?TransIn, ?TransOut)
+	{
+		super("Adventure", TransIn, TransOut);
+	}
 
 	override function create()
 	{
-		// bgColor = 0xFF7E9DAA;
+		var liveandlearn = Paths.music("liveandlearn");
 
-		Conductor.bpm = 174;
-		FlxG.sound.playMusic(Paths.music("liveandlearn"), 1, false);
+		var sky = quickSprite("sky");
 
-		var sky:FlxSprite = new FlxSprite().loadGraphic(quickImage("sky"));
+		skyLeft = quickSprite("skybad", -FlxG.width);
+		skyRight = quickSprite("skygood", FlxG.width);
+		characters = quickSprite("characters");
 
-		skyLeft = new FlxSprite(-FlxG.width).loadGraphic(quickImage("skybad"));
-		skyRight = new FlxSprite(FlxG.width).loadGraphic(quickImage("skygood"));
-		characters = new FlxSprite().loadGraphic(quickImage("characters"));
-
-		mall = new FlxSprite(0, FlxG.height).loadGraphic(quickImage("mall"));
+		mall = quickSprite("mall", 0, FlxG.height);
 		mall.screenCenter(X);
 
-		logo = new FlxSprite(0, FlxG.height * .4).loadGraphic(quickImage("logo-large"));
+		logo = quickSprite("logo-large", 0, FlxG.height * .4);
 		logo.y -= logo.height * .5;
 		logo.screenCenter(X);
 
-		start = new FlxSprite(0, FlxG.height * .75).loadGraphic(quickImage("start-alt"));
+		start = quickSprite("start-alt", 0, FlxG.height * .75);
 		start.y -= start.height * .5;
 		start.screenCenter(X);
 
-		copyright = new FlxSprite(FlxG.width * 0.075, FlxG.height * 0.85).loadGraphic(quickImage("copyright"));
+		copyright = quickSprite("copyright", FlxG.width * 0.075, FlxG.height * 0.85);
 
 		add(sky);
 		add(skyLeft);
@@ -52,6 +51,8 @@ class LearningState extends MusicBeatState
 
 		super.create();
 
+		Conductor.bpm = 174;
+		FlxG.sound.playMusic(liveandlearn, 1, false);
 		FlxG.camera.fade(FlxColor.BLACK, 2, true);
 	}
 

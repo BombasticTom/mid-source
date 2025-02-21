@@ -71,8 +71,6 @@ class MidFreeplay extends MidTemplate
 		// Assets preloading code
 		WeekData.reloadWeekFiles(false);
 
-		scrollMenu = FlxG.sound.load(Paths.sound('scrollMenu'), 0.4);
-
 		for (i => weekName in WeekData.weeksList) {
 			var week:WeekData = WeekData.weeksLoaded.get(weekName);
 
@@ -90,6 +88,8 @@ class MidFreeplay extends MidTemplate
 			addSong("test", 0, "bf", -7179779);
 
 		Mods.loadTopMod();
+
+		scrollMenu = FlxG.sound.load(Paths.sound('scrollMenu'), 0.4);
 
 		var arrow:FlxGraphic = Paths.image("freeplay/arrow");
 

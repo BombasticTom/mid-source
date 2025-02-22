@@ -10,7 +10,7 @@ haxelib install flixel-addons 3.2.3
 haxelib install flixel-ui 2.6.1
 haxelib install flixel-tools
 :: SScript is discontinued and it won't let you build with it so.
-:: haxelib install SScript 8.1.6
+haxelib git SScript https://github.com/TechnikTil/SScriptBackup
 haxelib install hxvlc 2.0.1 --skip-dependencies
 haxelib install tjson 1.4.0
 haxelib git flxanimate https://github.com/Dot-Stuff/flxanimate 768740a56b26aa0c072720e0d1236b94afe68e3e

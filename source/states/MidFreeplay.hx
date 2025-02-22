@@ -11,6 +11,8 @@ import states.FreeplayState.SongMetadata;
 import backend.WeekData;
 import flixel.graphics.FlxGraphic;
 import flixel.addons.transition.FlxTransitionableState;
+import substates.GameplayChangersSubstate;
+import substates.ResetScoreSubState;
 
 class MidFreeplay extends MidTemplate
 {
@@ -434,6 +436,19 @@ class MidFreeplay extends MidTemplate
 
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				coolTween(false, (_) -> FlxG.switchState(new MidMenuState({x: coolBG.x, y: coolBG.y, scale: midLogo.scale.x})));
+			}
+
+			if(FlxG.keys.justPressed.CONTROL)
+			{
+				persistentUpdate = false;
+				openSubState(new GameplayChangersSubstate());
+			}
+
+			if(controls.RESET)
+			{
+				persistentUpdate = false;
+				openSubState(new ResetScoreSubState(songList[curSelected].songName, curDifficulty, songList[curSelected].songCharacter));
+				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 		}
 

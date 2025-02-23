@@ -155,7 +155,7 @@ class PlayState extends MusicBeatState
 	public var eventNotes:Array<EventNote> = [];
 
 	public var camFollow:FlxObject;
-	private static var prevCamFollow:FlxObject;
+	private static var smoothTransitionData:PlayStateTransitionData;
 
 	public var strumLineNotes:FlxTypedGroup<StrumNote>;
 	public var opponentStrums:FlxTypedGroup<StrumNote>;
@@ -509,15 +509,19 @@ class PlayState extends MusicBeatState
 		camFollow.setPosition(camPos.x, camPos.y);
 		camPos.put();
 
-		if (prevCamFollow != null)
-		{
-			camFollow = prevCamFollow;
-			prevCamFollow = null;
-		}
 		add(camFollow);
 
+		if (smoothTransitionData != null && smoothTransitionData.stage == curStage) {
+			FlxG.camera.scroll.set(smoothTransitionData.camX, smoothTransitionData.camY);
+			FlxG.camera.zoom = smoothTransitionData.camZoom;
+			FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, Conductor.crochet / 1000, {ease: FlxEase.circOut});
+			FlxTransitionableState.skipNextTransIn = true;
+			camFollow.setPosition(smoothTransitionData.camFollowX, smoothTransitionData.camFollowY);
+		}
+		else
+			FlxG.camera.zoom = defaultCamZoom;
+
 		FlxG.camera.follow(camFollow, LOCKON, 0);
-		FlxG.camera.zoom = defaultCamZoom;
 		FlxG.camera.snapToTarget();
 
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
@@ -2390,9 +2394,7 @@ class PlayState extends MusicBeatState
 					trace('LOADING NEXT SONG');
 					trace(Paths.formatToSongPath(PlayState.storyPlaylist[0]) + difficulty);
 
-					FlxTransitionableState.skipNextTransIn = true;
-					FlxTransitionableState.skipNextTransOut = true;
-					prevCamFollow = camFollow;
+					registerSmoothTransition();
 
 					PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0] + difficulty, PlayState.storyPlaylist[0]);
 					FlxG.sound.music.stop();
@@ -2413,6 +2415,19 @@ class PlayState extends MusicBeatState
 			transitioning = true;
 		}
 		return true;
+	}
+
+	public function registerSmoothTransition() {
+		smoothTransitionData = {
+			stage: curStage,
+			camX: FlxG.camera.scroll.x,
+			camY: FlxG.camera.scroll.y,
+			camFollowX: camFollow.x,
+			camFollowY: camFollow.y,
+			camZoom: FlxG.camera.zoom
+		};
+		FlxTransitionableState.skipNextTransIn = true;
+		FlxTransitionableState.skipNextTransOut = true;
 	}
 
 	public function KillNotes() {
@@ -3572,4 +3587,13 @@ class PlayState extends MusicBeatState
 		return false;
 	}
 	#end
+}
+
+typedef PlayStateTransitionData = {
+	var stage:String;
+	var camX:Float;
+	var camY:Float;
+	var camFollowX:Float;
+	var camFollowY:Float;
+	var camZoom:Float;
 }
